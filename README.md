@@ -75,6 +75,7 @@ EndSection
 * Restart to have the rule take effect.
 * The connected device should no longer affect the cursor. In my case, it isn't detected as a controller at all, but I'm fairly certain it's an issue with the SRW-S1 itself.
 
+*[(Source 1)](https://bbs.archlinux.org/viewtopic.php?id=185410) [(Source 2)](https://www.reddit.com/r/linux_gaming/comments/lj781z/presumed_xorg_controllermouse_issue/)*
 
 ## Headtracking
 
