@@ -1,6 +1,6 @@
 # Linux-Controller-Fixes
 A collection of fixes picked up over time to allow game controllers (primarily HOTAS systems) to work as expected under Linux.
-Applies to both Wine and native applications.
+Applies to both Wine and native applications. Primarily intended to aid beginners in troubleshooting common control issues.
 
 ## Contents
 
@@ -19,6 +19,9 @@ Applies to both Wine and native applications.
          * [Opentrack](#opentrack)
          * [Linuxtrack](#linuxtrack)
       * [Issues](#headtracking-issues)
+
+*Note: While I have various experiences in tweaking controllers under Linux (thanks to my interest in space/flight simulations), I'm by no means an expert.
+I'm not responsible for any damage, data loss, system damage or instability that arises from implementing any fixes described here, however unlikely that may be. Never blindly follow guides on the internet.*
 
 ## Controllers
 
@@ -44,7 +47,34 @@ This section covers common issues with other controller types (gamepad, wheel et
 
 #### Issues in native applications
 
-xconf/mouse goes here
+I haven't experienced any issues with native applications yet, though I don't own any titles that exclusively make use of a controller - I'll test any I come across. I have, however, had problems with controller detection, so I'll list those instead.
+
+##### Controller detected as a mouse/inputs moving the cursor
+
+*Note to Wayland users: this only applies to Xorg. I'm sure there is a Wayland alternative, but I'm not a Wayland user so cannot confirm.*
+
+This occurs when X (the Unix window system) detects a controller as a mouse input. I've only seen this with my steering wheel (SRW-S1), and I believe it's motion-control features are to blame for this incorrect identification. Regardless, it's a problem that can be solved by doing the following:
+
+* Consult `Xorg.0.log`. Find it at `/var/log/Xorg.0.log/`, or `~/.local/share/xorg/` if you're running rootless Xorg.
+* Search (use `Ctrl-F`) for the name of your controller. It's most easy to find it by looking for the name of the manufacturer.
+* When you find the controller in question, find it's `evdev` identifier - this takes the form of `eventX`, where X is a number.
+  * While here, also try to find what X believes your device to be - if it's controlling the mouse, this is likely to be `pointer`.
+  * It is possible that you may also need the devices `jsX` identifier also, but I have not seen a case that requires it as of yet.
+* Now you know the path of your device (under Linux, devices have a path just as a file or folder does - see `/dev/`), you can direct X to ignore any 'mouse-like' inputs. Browse to `/usr/share/X11/xorg.conf.d/`, and make a `.conf` file following the naming scheme `XX-devicetype.conf` - I'll be using `50-joystick.conf` as I already had a custom joystick rule present.
+* In this newly created file, place the following:
+```
+Section "InputClass"
+        Identifier "libinput pointer catchall"
+        MatchDevicePath "/dev/input/event27"
+        Driver "evdev"
+        Option "Ignore" "on"
+EndSection
+```
+  * Be sure to replace `/dev/input/event27` with the device number you found earlier. Change `pointer` to a different device type if needed.
+  * This tells X a few things. First, it should be looking for any `pointer` devices connected, specifically to `event27`. If one is found, it is to be ignored by the window system entirely -**not**- moving the cursor when inputs are provided.
+* Restart to have the rule take effect.
+* The connected device should no longer affect the cursor. In my case, it isn't detected as a controller at all, but I'm fairly certain it's an issue with the SRW-S1 itself.
+
 
 ## Headtracking
 
