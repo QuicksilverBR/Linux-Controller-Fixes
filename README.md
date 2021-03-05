@@ -39,7 +39,7 @@ This issue was the first controller problem I encountered and spent months on na
 
 * First, identify which axis isn't being detected. In this example, I'll be using the Thrustmaster TWCS Throttle, but this method should work (in principal, at least) across any controller Wine detects.
 
-*[(Source)](https://www.reddit.com/r/wine_gaming/comments/hxfevf/hotas_style_joysticks_in_wine_with_not_all_axes/)
+*[(Source)](https://www.reddit.com/r/wine_gaming/comments/hxfevf/hotas_style_joysticks_in_wine_with_not_all_axes/)*
 
 Regedit fix (WIP)
 Lutris autoconfig
