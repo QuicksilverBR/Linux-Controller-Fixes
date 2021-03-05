@@ -33,7 +33,15 @@ This section covers common issues with HOTAS systems on Linux, in both native an
 
 #### HOTAS issues in Wine applications
 
-Regedit fix
+##### Axes detected by system applications but not under Wine
+
+This issue was the first controller problem I encountered and spent months on narrowing down. While the issue itself isn't particularly complex, there are issues with similar symptoms, meaning one usually just has to try all the fixes until the problem is resolved. That said, if all native applications detect the controller correctly, it's likely this is the fix needed.
+
+* First, identify which axis isn't being detected. In this example, I'll be using the Thrustmaster TWCS Throttle, but this method should work (in principal, at least) across any controller Wine detects.
+
+*[(Source)](https://www.reddit.com/r/wine_gaming/comments/hxfevf/hotas_style_joysticks_in_wine_with_not_all_axes/)
+
+Regedit fix (WIP)
 Lutris autoconfig
 
 #### HOTAS issues in native applications
