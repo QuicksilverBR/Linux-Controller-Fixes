@@ -21,7 +21,7 @@ Applies to both Wine and native applications. Primarily intended to aid beginner
       * [Issues](#headtracking-issues)
 
 *Note: While I have various experiences in tweaking controllers under Linux (thanks to my interest in space/flight simulations), I'm by no means an expert.
-I'm not responsible for any damage, data loss, system damage or instability that arises from implementing any fixes described here, however unlikely that may be. Never blindly follow guides on the internet.*
+I'm not responsible for any damage, data loss, system damage or instability that could arise from implementing any fixes described here, however unlikely that may be. Never blindly follow guides on the internet.*
 
 ## Controllers
 
