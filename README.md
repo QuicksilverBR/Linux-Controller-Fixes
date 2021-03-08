@@ -78,8 +78,9 @@ Section "InputClass"
         Option "Ignore" "on"
 EndSection
 ```
-  * Be sure to replace `/dev/input/event27` with the device number you found earlier. Change `pointer` to a different device type if needed.
-  * This tells X a few things. First, it should be looking for any `pointer` devices connected, specifically to `event27`. If one is found, it is to be ignored by the window system entirely -**not**- moving the cursor when inputs are provided.
+Be sure to replace `/dev/input/event27` with the device number you found earlier. Change `pointer` to a different device type if needed.
+
+This tells X a few things. First, it should be looking for any `pointer` devices connected, specifically to `event27`. If one is found, it is to be ignored by the window system entirely - **not** moving the cursor when inputs are provided.
 * Restart to have the rule take effect.
 * The connected device should no longer affect the cursor. In my case, it isn't detected as a controller at all, but I'm fairly certain it's an issue with the SRW-S1 itself.
 
