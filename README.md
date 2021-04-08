@@ -2,6 +2,8 @@
 A collection of fixes picked up over time to allow game controllers (primarily HOTAS systems) to work as expected under Linux.
 Applies to both Wine and native applications. Primarily intended to aid beginners in troubleshooting common control issues.
 
+Updated as issues are encountered, identified and resolved, purely as time permits.
+
 ## Contents
 
    * [Controllers](#controllers)
