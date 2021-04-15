@@ -2,6 +2,8 @@
 A collection of fixes picked up over time to allow game controllers (primarily HOTAS systems) to work as expected under Linux.
 Applies to both Wine and native applications. Primarily intended to aid beginners in troubleshooting common control issues.
 
+Errors and fixes collated over time across Fedora, OpenSUSE, Void and EndeavourOS (Arch).
+
 Updated as issues are encountered, identified and resolved, purely as time permits.
 
 ## Contents
@@ -23,11 +25,11 @@ Updated as issues are encountered, identified and resolved, purely as time permi
       * [Issues](#headtracking-issues)
 
 *Note: While I have various experiences in tweaking controllers under Linux (thanks to my interest in space/flight simulations), I'm by no means an expert.
-I'm not responsible for any damage, data loss, system damage or instability that could arise from implementing any fixes described here, however unlikely that may be. Never blindly follow guides on the internet.*
+I'm not responsible for any damage, data loss, system damage or instability that could arise from implementing any fixes described here, however unlikely that may be. Never blindly follow guides on the internet, especially without a backup in place.*
 
 ## Controllers
 
-State of controller support on Linux
+From my rather limited experience with controllers (defined for the sake of this section as joypads/gamepads), controllers seem to be well supported across the board. I'm sure there are some exceptions, but my testing has revealed no problems so far. I make use of both a Steelseries Nimbus and Stratus XL over Bluetooth.
 
 ### HOTAS
 
@@ -43,8 +45,20 @@ This issue was the first controller problem I encountered and spent months on na
 
 *[(Source)](https://www.reddit.com/r/wine_gaming/comments/hxfevf/hotas_style_joysticks_in_wine_with_not_all_axes/)*
 
-Regedit fix (WIP)
-Lutris autoconfig
+^ Regedit fix (WIP)
+
+##### Game not launching/input not detected
+
+In cases where the controller (tested with a native utility such as [jstest-gtk](https://github.com/Grumbel/jstest-gtk/tree/master) and game (via [Lutris](https://lutris.net/)) are working fine but inputs are unrecognised or incorrect, it's possible that Lutris has been meddling where it ought not. I've only had this occur for one title, but this fix not only allowed the game to get past a launch screen but also be fully playable. It's rather simple:
+
+* In Lutris, select the game experiencing controller problems. Open the contextual menu and select '*Configure*'.
+* In the configuration menu, switch to the '*Runner options*' tab. Scroll to the bottom to find the '*Autoconfigure joypads*' option.
+* This is sometimes set by default, presumably configured by the installer for the relevant game. Disable the option.
+* Save the configuration, return to the library screen and open the Wine menu. Select '*Wine Control Panel*'. Alternatively, you can execute `WINEPREFIX=$PATHTOGAME wine joy.cpl`.
+* In the 'Game Controllers' window, ensure that the relevant controller is active. Once confirmed, close the Wine control panel.
+* Launch the game and test.
+
+This, as may be obvious, prevents Lutris from making any changes to how the Wine runner in use recognises your controllers. I always disable this option unless it's specifically needed, as it hampers troubleshooting other issues, especially with multiple (or even worse, multi-device) controllers connected.
 
 #### HOTAS issues in native applications
 
@@ -53,7 +67,7 @@ No titles to test with but info still valuable
 
 ### Other controllers
 
-This section covers common issues with other controller types (gamepad, wheel etc.) on Linux, in both native and Wine applications.
+This section covers common issues with other controller types (wheels, button panels etc.) on Linux, in both native and Wine applications.
 
 #### Issues in native applications
 
@@ -61,7 +75,7 @@ I haven't experienced any issues with native applications yet, though I don't ow
 
 ##### Controller detected as a mouse/inputs moving the cursor
 
-*Note to Wayland users: this only applies to Xorg. I'm sure there is a Wayland alternative, but I'm not a Wayland user so cannot confirm.*
+*Note to Wayland users: this only applies to Xorg. I'm sure there is a Wayland alternative, but I have no experience with systems using Wayland so cannot confirm.*
 
 This occurs when X (the Unix window system) detects a controller as a mouse input. I've only seen this with my steering wheel (SRW-S1), and I believe it's motion-control features are to blame for this incorrect identification. Regardless, it's a problem that can be solved by doing the following:
 
